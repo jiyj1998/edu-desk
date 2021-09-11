@@ -14,7 +14,7 @@
               <input type="password" class="form-control" placeholder="密码" required="" />
             </div>
             <div>
-              <a class="btn btn-default submit" href="index.html">登录</a>
+              <a class="btn btn-default submit" @click="login">登录</a>
               <a class="reset_pass" href="#">忘记密码?</a>
             </div>
 
@@ -37,7 +37,12 @@
 <script>
 
 export default {
-  name: 'login'
+  name: 'login',
+  methods: {
+    login: function () {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 <style scoped="scoped">
