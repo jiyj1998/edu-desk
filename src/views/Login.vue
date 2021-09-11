@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login_container">
     <a class="hiddenanchor" id="signup"></a>
     <a class="hiddenanchor" id="signin"></a>
     <div class="login_wrapper">
@@ -40,3 +40,8 @@ export default {
   name: 'login'
 }
 </script>
+<style scoped="scoped">
+.login_container {
+  background: #F7F7F7!important;
+}
+</style>
