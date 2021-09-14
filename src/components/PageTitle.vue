@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style scoped>
-
+.page-title .title_left {
+  text-align: left;
+}
 </style>

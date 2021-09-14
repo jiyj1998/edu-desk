@@ -8,6 +8,13 @@ module.exports = {
         jquery: 'jquery',
         'window.jQuery': 'jquery'
       })
-    ]
+    ],
+    module: {
+      rules: [{
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }]
+    }
   }
 }
