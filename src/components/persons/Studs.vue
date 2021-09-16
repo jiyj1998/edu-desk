@@ -6,23 +6,15 @@
         <div class="x_title">
           <h2>学生列表<small>101班级</small></h2>
           <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            <li><a class="collapse-link" href="#" @click="view"><i class="fa fa-chevron-up"></i>导入</a>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Settings 1</a>
-                </li>
-                <li><a href="#">Settings 2</a>
-                </li>
-              </ul>
+              <a href="#" @click="view"><i class="fa fa-wrench"></i>新增一个</a>
             </li>
           </ul>
           <div class="clearfix"></div>
         </div>
-
         <div class="x_content">
-          <p><a >批量导入</a> 学生信息或者单个 <a href="#" @click="view">添加</a></p>
           <div class="table-responsive">
             <table class="table table-striped jambo_table bulk_action">
               <thead>
@@ -34,7 +26,7 @@
                 <th class="column-title">性别 </th>
                 <th class="column-title">年龄 </th>
                 <th class="column-title">身份号 </th>
-                <th class="column-title">住址 </th>
+                <th class="column-title" style="width: 40%">住址 </th>
                 <th class="column-title no-link last">
                   <span class="nobr">操作</span>
                 </th>
@@ -97,10 +89,13 @@ export default {
       dialogVisible: false
     }
   },
+  mounted () {
+    this.queryStudents()
+  },
   methods: {
     queryStudents () {
       const that = this
-      Post('http://localhost:8001/persons/students', {}, function (response) {
+      Post('http://localhost:8001/persons/list', {}, function (response) {
         console.log(response)
         const data = response.data
         if (data.success) {
@@ -119,7 +114,7 @@ export default {
     del () {
       this.dialogVisible = true
       console.log('删除')
-      Delete('http://localhost:8001/persons/del', {
+      Delete('http://localhost:8001/persons/1', {
         personId: 1
       }, function (response) {
         console.log(response)
@@ -138,5 +133,7 @@ export default {
 </script>
 
 <style scoped>
-
+.table>tbody>tr>td {
+  text-align: left;
+}
 </style>

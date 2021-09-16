@@ -26,16 +26,16 @@
         <div class="menu_section">
           <h3>基础</h3>
           <ul class="nav side-menu">
-            <li><a @click="menus('classes')"><i class="fa fa-columns"></i> 所有班级 <span class="fa fa-chevron-left"></span></a>
+            <li :class="{active: activeMenu == 'classes'}"><a @click="menus('classes')"><i class="fa fa-columns"></i> 班级 <span class="fa fa-chevron-right"></span></a>
             </li>
-            <li><a @click="menus('studs')"><i class="fa fa-users"></i> 学生 <span class="fa fa-chevron-down"></span></a>
+            <li :class="{active: activeMenu == 'studs'}"><a @click="menus('studs')"><i class="fa fa-users"></i> 学生 <span class="fa fa-chevron-right"></span></a>
             </li>
           </ul>
         </div>
         <div class="menu_section">
           <h3>实时</h3>
           <ul class="nav side-menu">
-            <li><a @click="menus('charts')"><i class="fa fa-bar-chart"></i> 汇总 <span class="fa fa-chevron-down"></span></a>
+            <li :class="{active: activeMenu == 'charts'}"><a @click="menus('charts')"><i class="fa fa-bar-chart"></i> 汇总 <span class="fa fa-chevron-right"></span></a>
             </li>
           </ul>
         </div>
@@ -48,11 +48,8 @@
         <a @click="menus('settings')" data-toggle="tooltip" data-placement="top" title="Settings">
           <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
         </a>
-        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+        <a data-toggle="tooltip" data-placement="top" title="FullScreen" @click="isScreenFull">
           <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-        </a>
-        <a data-toggle="tooltip" data-placement="top" title="Lock">
-          <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
         </a>
         <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
           <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -64,6 +61,7 @@
 </template>
 
 <script>
+import screenfull from 'screenfull'
 
 export default {
   name: 'Sidebar',
@@ -74,12 +72,26 @@ export default {
     return {
       user: {
         img: require('@/assets/images/img.jpg')
-      }
+      },
+      isFullscreen: false,
+      activeMenu: ''
     }
   },
   methods: {
     menus (module) {
+      this.activeMenu = module
       this.$emit('changeModule', module)
+    },
+    isScreenFull () {
+      console.log('全屏')
+      if (!screenfull.isEnabled) {
+        this.$message({
+          message: '您的浏览器版本过低 不支持全屏显示！',
+          type: 'warning'
+        })
+        return false
+      }
+      screenfull.toggle()
     }
   }
 }

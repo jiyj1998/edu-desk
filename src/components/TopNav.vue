@@ -14,16 +14,16 @@
             </a>
             <ul class="dropdown-menu dropdown-usermenu pull-right">
               <li>
-                <a @click="menus('profile')"> Profile</a>
+                <a @click="menus('profile')"> 修改密码</a>
               </li>
               <li>
                 <a @click="menus('settings')">
                   <span class="badge bg-red pull-right">50%</span>
-                  <span>Settings</span>
+                  <span>设置</span>
                 </a>
               </li>
               <li><a href="javascript:;">Help</a></li>
-              <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+              <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> 注销</a></li>
             </ul>
           </li>
 
