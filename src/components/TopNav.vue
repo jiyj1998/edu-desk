@@ -13,9 +13,11 @@
               <span class=" fa fa-angle-down"></span>
             </a>
             <ul class="dropdown-menu dropdown-usermenu pull-right">
-              <li><a href="profile.html"> Profile</a></li>
               <li>
-                <a href="setting.html">
+                <a @click="menus('profile')"> Profile</a>
+              </li>
+              <li>
+                <a @click="menus('settings')">
                   <span class="badge bg-red pull-right">50%</span>
                   <span>Settings</span>
                 </a>
@@ -115,6 +117,9 @@ export default {
       }
       window.document.body.classList.replace('nav-sm', 'nav-md')
       this.menuSize = 'md'
+    },
+    menus (module) {
+      this.$emit('changeModule', module)
     }
   }
 }

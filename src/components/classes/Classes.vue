@@ -1,11 +1,11 @@
 <template>
   <div >
-    <PageTitle title="all Classes"/>
+    <PageTitle title="班级管理"/>
     <div class="row">
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Classes</h2>
+            <h2>所有班级</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -79,7 +79,6 @@
               </tbody>
             </table>
             <!-- end project list -->
-
           </div>
         </div>
       </div>
@@ -123,7 +122,6 @@ export default {
     this.queryClasses()
   },
   methods: {
-    // Progressbar
     queryClasses () {
       const that = this
       axios.post('http://localhost:8001/classes/list', {})

@@ -45,7 +45,7 @@
 
       <!-- /menu footer buttons -->
       <div class="sidebar-footer hidden-small">
-        <a href="setting.html" data-toggle="tooltip" data-placement="top" title="Settings">
+        <a @click="menus('settings')" data-toggle="tooltip" data-placement="top" title="Settings">
           <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
         </a>
         <a data-toggle="tooltip" data-placement="top" title="FullScreen">

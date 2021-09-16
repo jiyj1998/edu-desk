@@ -3,7 +3,7 @@
     <div class="main_container">
       <sidebar navClass="nav-sm" @changeModule="changeModule"/>
       <!-- top navigation -->
-      <top-nav/>
+      <top-nav  @changeModule="changeModule"/>
       <!-- /top navigation -->
       <!-- page content -->
       <div class="right_col" role="main">
@@ -27,10 +27,12 @@ import '@/assets/js/custom'
 import Sidebar from '@/components/Sidebar'
 import TopNav from '@/components/TopNav'
 import Classes from '@/components/classes/Classes'
-import Studs from '@/components/Studs'
+import Studs from '@/components/persons/Studs'
+import Settings from '@/components/Settings'
+import Profile from '@/components/Profile'
 
 export default {
-  components: { Sidebar, TopNav, Classes, Studs },
+  components: { Sidebar, TopNav, Classes, Studs, Settings, Profile },
   data: function () {
     return {
       menuSize: 'sm',
