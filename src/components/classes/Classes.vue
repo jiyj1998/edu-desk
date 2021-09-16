@@ -86,12 +86,13 @@
     </div>
     <div class="clearfix"></div>
     <el-dialog
-      title="提示"
+      :title="curClass.className"
       v-model="dialogVisible"
-      width="30%"
+      width="100%"
+      fullscreen="false"
       :before-close="handleClose"
     >
-      <span>这是一段信息</span>
+      <detail></detail>
       <template #footer>
     <span class="dialog-footer">
       <a href="#" class="btn btn-default btn-sm" @click="dialogVisible = false"> 取消 </a>
@@ -105,13 +106,15 @@
 <script>
 import PageTitle from '@/components/PageTitle'
 import axios from 'axios'
+import Detail from '@/components/classes/Detail'
 
 export default {
   name: 'Classes',
-  components: { PageTitle },
+  components: { Detail, PageTitle },
   data: function () {
     return {
       classes: [],
+      curClass: {},
       userImg: require('@/assets/images/user.png'),
       dialogVisible: false
     }
@@ -138,6 +141,7 @@ export default {
         })
     },
     handleClose (done) {
+      console.log(done)
       this.$confirm('确认关闭？')
         .then((_) => {
           done()
@@ -146,14 +150,17 @@ export default {
     },
     viewClassOne () {
       console.log('查看班级信息')
+      this.curClass = this.classes[0]
       this.dialogVisible = true
     },
     editClassOne () {
       console.log('编辑班级信息')
+      this.curClass = this.classes[0]
       this.dialogVisible = true
     },
     delClassOne () {
       console.log('删除班级信息')
+      this.curClass = this.classes[0]
       this.dialogVisible = true
     }
   }

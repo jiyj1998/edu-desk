@@ -26,7 +26,7 @@
 import '@/assets/js/custom'
 import Sidebar from '@/components/Sidebar'
 import TopNav from '@/components/TopNav'
-import Classes from '@/components/Classes'
+import Classes from '@/components/classes/Classes'
 import Studs from '@/components/Studs'
 
 export default {
