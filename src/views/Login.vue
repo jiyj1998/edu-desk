@@ -8,7 +8,7 @@
           <form>
             <h1>登录</h1>
             <div>
-              <input type="text" class="form-control" placeholder="用户名" required="" />
+              <input type="text" class="form-control" placeholder="用户名" required="" :value="userName"/>
             </div>
             <div>
               <input type="password" class="form-control" placeholder="密码" required="" />
@@ -38,8 +38,14 @@
 
 export default {
   name: 'login',
+  data: function () {
+    return {
+      userName: ''
+    }
+  },
   methods: {
     login: function () {
+      sessionStorage.setItem('username', this.userName)
       this.$router.push('/')
     }
   }

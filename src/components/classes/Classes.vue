@@ -88,7 +88,6 @@
       :title="curClass.className"
       v-model="dialogVisible"
       width="100%"
-      fullscreen="false"
       :before-close="handleClose"
     >
       <detail></detail>
