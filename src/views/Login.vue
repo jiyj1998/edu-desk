@@ -8,7 +8,7 @@
           <form>
             <h1>登录</h1>
             <div>
-              <input type="text" class="form-control" placeholder="用户名" required="" :value="userName"/>
+              <input type="text" class="form-control" placeholder="用户名" required="" v-model="userName"/>
             </div>
             <div>
               <input type="password" class="form-control" placeholder="密码" required="" />

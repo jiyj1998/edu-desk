@@ -36,7 +36,7 @@ export default {
   data: function () {
     return {
       menuSize: 'sm',
-      currentModule: 'classes'
+      currentModule: 'studs'
     }
   },
   methods: {

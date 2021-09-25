@@ -2,7 +2,7 @@
   <div class="col-md-3 left_col menu_fixed">
     <div class="left_col scroll-view">
       <div class="navbar nav_title" style="border: 0;">
-        <a href="index.html" class="site_title"><i class="fa fa-yelp"></i> <span>AirNab</span></a>
+        <a href="/" class="site_title"><i class="fa fa-yelp"></i> <span>AirNab</span></a>
       </div>
 
       <div class="clearfix"></div>
@@ -26,17 +26,17 @@
         <div class="menu_section">
           <h3>基础</h3>
           <ul class="nav side-menu">
-            <li :class="{active: activeMenu == 'classes'}"><a @click="menus('classes')"><i class="fa fa-columns"></i> 班级 <span class="fa fa-chevron-right"></span></a>
-            </li>
             <li :class="{active: activeMenu == 'studs'}"><a @click="menus('studs')"><i class="fa fa-users"></i> 学生 <span class="fa fa-chevron-right"></span></a>
+            </li>
+            <li :class="{active: activeMenu == 'classes'}"><a @click="menus('classes')"><i class="fa fa-columns"></i> 班级 <span class="fa fa-chevron-right"></span></a>
             </li>
           </ul>
         </div>
         <div class="menu_section">
           <h3>实时</h3>
           <ul class="nav side-menu">
-            <li :class="{active: activeMenu == 'charts'}"><a @click="menus('charts')"><i class="fa fa-bar-chart"></i> 汇总 <span class="fa fa-chevron-right"></span></a>
-            </li>
+<!--            <li :class="{active: activeMenu == 'charts'}"><a @click="menus('charts')"><i class="fa fa-bar-chart"></i> 汇总 <span class="fa fa-chevron-right"></span></a>
+            </li>-->
           </ul>
         </div>
 
@@ -51,7 +51,7 @@
         <a data-toggle="tooltip" data-placement="top" title="FullScreen" @click="isScreenFull">
           <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
         </a>
-        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+        <a data-toggle="tooltip" data-placement="top" title="Logout" href="#" @click="logout">
           <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
         </a>
       </div>
@@ -74,7 +74,7 @@ export default {
         img: require('@/assets/images/img.jpg')
       },
       isFullscreen: false,
-      activeMenu: ''
+      activeMenu: 'studs'
     }
   },
   methods: {
@@ -92,6 +92,9 @@ export default {
         return false
       }
       screenfull.toggle()
+    },
+    logout () {
+      this.$router.push('/login')
     }
   }
 }
