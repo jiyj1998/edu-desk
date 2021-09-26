@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="">
             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <img :src="user.img" alt="">admin
+              <img :src="user.img" alt="">{{ userName }}
               <span class=" fa fa-angle-down"></span>
             </a>
             <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -60,6 +60,7 @@ export default {
   name: 'Topnav',
   data: function () {
     return {
+      userName: 'admin',
       user: {
         img: require('@/assets/images/img.jpg')
       },
@@ -83,6 +84,7 @@ export default {
       } catch (e) {
       }
     })
+    this.userName = sessionStorage.getItem('username')
   },
   methods: {
     toggleMenu: function () {
