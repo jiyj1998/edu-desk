@@ -20,7 +20,6 @@ import '@/assets/js/bootstrap-progressbar.min'
 createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
 
 router.beforeEach((to, from, next) => {
-  console.log(to.path)
   if (to.path === '/login') {
     sessionStorage.removeItem('username')
   }

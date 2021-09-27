@@ -47,17 +47,20 @@ export default {
     console.log('初始化用户名')
     if (!localStorage.getItem('admin')) {
       console.log('初始化用户名')
+      localStorage.setItem('admin', JSON.stringify({
+        userid: '0',
+        username: 'admin',
+        passwd: md5('123$%^789')
+      }))
       localStorage.setItem('user1', JSON.stringify({
+        userid: '1',
         username: 'user1',
         passwd: md5('123456')
       }))
       localStorage.setItem('user2', JSON.stringify({
+        userid: '2',
         username: 'user2',
         passwd: md5('123456')
-      }))
-      localStorage.setItem('admin', JSON.stringify({
-        username: 'admin',
-        passwd: md5('123$%^789')
       }))
     }
   },
@@ -66,6 +69,7 @@ export default {
       const user = localStorage.getItem(this.userName)
       if (user && JSON.parse(user).passwd === md5(this.password)) {
         sessionStorage.setItem('username', this.userName)
+        sessionStorage.setItem('userid', JSON.parse(user).userid)
         this.$router.push('/')
         return
       }

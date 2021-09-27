@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <PageTitle title="学生管理" @search="queryStudents"/>
   <div class="row">
@@ -14,10 +15,13 @@
                 <li v-for="(classObj, index) in classes" :key="index" @click="selClass(index)"><a href="#">{{ classObj.className }}</a></li>
               </ul>
             </li>
+            <li class="dropdown">
+              <a href="#" @click="add"><i class="fa fa-plus-square"></i>新增</a>
+            </li>
             <li><a class="collapse-link" href="#" @click="upload"><i class="fa fa-cloud-upload"></i>导入</a>
             </li>
             <li class="dropdown">
-              <a href="#" @click="add"><i class="fa fa-plus-square"></i>新增</a>
+              <a href="#" @click="viewRecord"><i class="fa fa-plus-square"></i>记录</a>
             </li>
           </ul>
           <div class="clearfix"></div>
@@ -61,6 +65,7 @@
                     placement="bottom"
                     :width="200"
                     trigger="click"
+                    @show="storeScore(index)"
                     @hide="saveScore(index)"
                   >
                     <template #reference>
@@ -94,6 +99,24 @@
   >
     <Upload @closeDiag="closeUploadPage" :curClass="curClass"></Upload>
   </el-dialog>
+  <el-dialog
+    v-model="recordDiag"
+    title="调分记录"
+  >
+    <div class="">
+      <el-scrollbar height="400px">
+      <el-timeline>
+        <el-timeline-item
+          v-for="(record, index) in records"
+          :key="index"
+          :timestamp="record.createdAt"
+        >
+          {{ record.recordContent }}
+        </el-timeline-item>
+      </el-timeline>
+      </el-scrollbar>
+    </div>
+  </el-dialog>
 </template>
 <script>
 import PageTitle from '@/components/PageTitle'
@@ -120,9 +143,12 @@ export default {
       },
       infoDiag: false,
       uploadDialog: false,
+      recordDiag: false,
       pageSize: 10,
       currentPage: 1,
-      action: 'edit'
+      action: 'edit',
+      curPersonScore: 0,
+      records: []
     }
   },
   mounted () {
@@ -139,7 +165,6 @@ export default {
     queryClasses () {
       const that = this
       Post('http://localhost:8001/classes/simpleList', {}, function (response) {
-        console.log(response)
         const data = response.data
         if (data.success) {
           const num = that.classes.length
@@ -158,7 +183,6 @@ export default {
       this.queryStudents()
     },
     queryStudents (searchContent) {
-      console.log('searchContent: {}', searchContent)
       const data = {}
       data.keyWord = searchContent
       data.role = 5
@@ -181,20 +205,17 @@ export default {
     },
     view (index) {
       console.log('查看')
-      console.log(index)
       this.curPerson = this.students[index]
       this.infoDiag = true
       this.action = 'view'
     },
     edit (index) {
-      console.log(index)
       console.log('编辑')
       this.curPerson = this.students[index]
       this.infoDiag = true
       this.action = 'edit'
     },
     del (index) {
-      console.log(index)
       console.log('删除')
       const p = this.students[index]
       const that = this
@@ -210,14 +231,6 @@ export default {
         }
       })
     },
-    handleClose (done) {
-      console.log(done)
-      this.$confirm('确认关闭？')
-        .then((_) => {
-          done()
-        })
-        .catch((_) => {})
-    },
     closeUploadPage () {
       this.uploadDialog = false
       this.queryStudents()
@@ -226,8 +239,19 @@ export default {
       this.infoDiag = false
       this.queryStudents()
     },
+    storeScore (index) {
+      this.curPersonScore = this.students[index].score
+    },
     saveScore (index) {
       const stud = this.students[index]
+      if (this.curPersonScore === stud.score) {
+        console.log('分值未变化')
+        return
+      }
+      const userid = sessionStorage.getItem('userid')
+      const username = sessionStorage.getItem('username')
+      stud.teacherId = userid
+      stud.teacherName = username
       Post('http://localhost:8001/persons/changeScore', stud, function (response) {
         const data = response.data
         if (!data.success) {
@@ -254,6 +278,20 @@ export default {
           that.queryStudents()
         }
       })
+    },
+    viewRecord () {
+      const that = this
+      Get('http://localhost:8001/message/voteRecords/', {}, function (response) {
+        const data = response.data
+        if (data.success) {
+          that.records.splice(0, that.records.length)
+          that.records = data.data
+        }
+      })
+      this.recordDiag = true
+    },
+    load () {
+      this.count.value += 2
     }
   }
 }
@@ -265,5 +303,8 @@ export default {
 }
 .x_title a {
   color: #405467;
+}
+.el-timeline-item {
+  text-align: left;
 }
 </style>

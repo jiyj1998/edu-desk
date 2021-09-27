@@ -8,7 +8,8 @@
         </div>
         <div class="x_content">
           <br />
-          <form class="form-horizontal form-label-left">
+          <button type="submit" class="btn btn-success" v-if="showInitBtn" @click="initConfig">初始化配置</button>
+          <form class="form-horizontal form-label-left" v-else>
             <div class="form-group" v-for="( config, index ) in configs" :key="index">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ config.mdmDesc }}</label>
               <div class="col-md-3 col-sm-3 col-xs-6">
@@ -49,7 +50,8 @@ export default {
       configs: [
       ],
       originConfigs: [
-      ]
+      ],
+      showInitBtn: false
     }
   },
   mounted () {
@@ -63,6 +65,10 @@ export default {
           const data = response.data
           if (data.success) {
             that.configs = data.data
+            if (that.configs.length === 0) {
+              that.showInitBtn = true
+              return
+            }
             for (let i = 0; i < that.configs.length; i++) {
               if (that.configs[i].type === 3) { // 时间
                 that.configs[i].mdmValue = moment(that.configs[i].mdmValue).format('YYYY-MM-DD')
@@ -102,6 +108,21 @@ export default {
       console.log(val)
       val = val.replace(/[^0-9]/g, '')
       console.log((val))
+    },
+    initConfig () {
+      const that = this
+      Get('http://localhost:8001/mdm/initConfig/false', {
+      }, function (response) {
+        if (response.data.success) {
+          ElMessage({
+            showClose: true,
+            message: '初始化成功',
+            type: 'success'
+          })
+          that.showInitBtn = false
+          that.getConfig()
+        }
+      })
     }
   }
 }
